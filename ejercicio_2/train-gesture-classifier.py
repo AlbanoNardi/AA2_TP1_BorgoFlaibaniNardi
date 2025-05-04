@@ -11,7 +11,7 @@ import requests
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.layers import Input, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 import io
 
@@ -61,19 +61,24 @@ X_train, X_test, y_train, y_test = train_test_split(
     X_data, y_labels,
     test_size=0.2,
     random_state=42,
+    stratify=y_labels,
 )
 
 # Early stop para el modelo
 early_stop = EarlyStopping(
         monitor='val_loss',  # Monitorea la pérdida en validación
-        patience=10,         # Número de épocas sin mejora antes de detener
+        patience=20,         # Número de épocas sin mejora antes de detener
         verbose=0,
+        restore_best_weights=True,  # Restaura los mejores pesos encontrados
         mode='min',          # Minimizar la pérdida
     )
 
 model = Sequential([
     Input(shape=(X_train.shape[1],)),   # Capa de entrada: tamaño basado en el número de características (42 valores: x,y para 21 landmarks)
-    Dense(16, activation='relu'),        # Primera capa oculta
+    Dense(32, activation='relu'),        # Primera capa oculta
+    Dropout(0.3),
+    Dense(16, activation='relu'),        # Segunda capa oculta
+    Dropout(0.2),
     Dense(8, activation='relu'),        # Segunda capa oculta
     Dense(3, activation="softmax")      # Capa de salida: 3 neuronas (una por clase) con activación softmax para clasificación
 ])
@@ -90,12 +95,13 @@ model.compile(
 history = model.fit(
         X_train, y_train,
         epochs=1500,             # Número máximo de épocas
-        batch_size=32,           # Tamaño del lote
+        batch_size=16,           # Tamaño del lote
         validation_split=0.2,    # 20% de los datos de entrenamiento para validación
         callbacks=[early_stop],  # Callback para detener el entrenamiento si no hay mejora
 )
 
-model.save('model851param.keras')
+
+model.save('model851param.h5')
 
 # Evaluar el modelo en el conjunto de prueba
 test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=1)
