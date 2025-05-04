@@ -1,0 +1,103 @@
+"""
+Script para el entrenamiento de un clasificador de gestos "piedra", "papel" o "tijeras"
+utilizando una red neuronal densa para procesar los landmarks detectados por MediaPipe.
+"""
+
+## Preparación del entorno
+
+# Importación de librerías necesarias
+import numpy as np
+import requests
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.callbacks import EarlyStopping
+import io
+
+## Análisis Exploratorio
+
+# Urls de los dataset creados con MediaPipe
+
+url_rps_dataset_f = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_dataset_flaibani.npy'
+url_rps_labels_f = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_labels_flaibani.npy'
+
+url_rps_dataset_b = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_dataset_borgo.npy'
+url_rps_labels_b = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_labels_borgo.npy'
+
+url_rps_dataset_n = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_dataset_nardi.npy'
+url_rps_labels_n = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_labels_nardi.npy'
+
+# Función para descargar y cargar archivos .npy desde URLs
+
+def load_npy_from_url(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return np.load(io.BytesIO(response.content))
+    else:
+        raise Exception(f"Error al descargar el archivo: {response.status_code}")
+
+x_flaibani = load_npy_from_url(url_rps_dataset_f)
+y_flaibani = load_npy_from_url(url_rps_labels_f)
+
+x_borgo = load_npy_from_url(url_rps_dataset_b)
+y_borgo = load_npy_from_url(url_rps_labels_b)
+
+x_nardi = load_npy_from_url(url_rps_dataset_n)
+y_nardi = load_npy_from_url(url_rps_labels_n)
+
+# Verificación de dimensiones de los datasets
+
+print(x_flaibani.shape, y_flaibani.shape)
+print(x_borgo.shape, y_borgo.shape)
+print(x_nardi.shape, y_nardi.shape)
+
+# Concatenación y guardado de los datasets
+
+X_data = np.concatenate((x_flaibani, x_borgo, x_nardi), axis=0)
+y_labels = np.concatenate((y_flaibani, y_borgo, y_nardi), axis=0)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_data, y_labels,
+    test_size=0.2,
+    random_state=42,
+)
+
+# Early stop para el modelo
+early_stop = EarlyStopping(
+        monitor='val_loss',  # Monitorea la pérdida en validación
+        patience=10,         # Número de épocas sin mejora antes de detener
+        verbose=0,
+        mode='min',          # Minimizar la pérdida
+    )
+
+model = Sequential([
+    Input(shape=(X_train.shape[1],)),   # Capa de entrada: tamaño basado en el número de características (42 valores: x,y para 21 landmarks)
+    Dense(16, activation='relu'),        # Primera capa oculta
+    Dense(8, activation='relu'),        # Segunda capa oculta
+    Dense(3, activation="softmax")      # Capa de salida: 3 neuronas (una por clase) con activación softmax para clasificación
+])
+
+model.summary()                         # Resumen del modelo
+
+# Compilación del modelo
+model.compile(
+        optimizer='adam',  # Optimizador adaptativo
+        loss='sparse_categorical_crossentropy',  # Función de pérdida para clasificación con etiquetas enteras
+        metrics=['accuracy']  # Métrica para monitorear
+)
+
+history = model.fit(
+        X_train, y_train,
+        epochs=1500,             # Número máximo de épocas
+        batch_size=32,           # Tamaño del lote
+        validation_split=0.2,    # 20% de los datos de entrenamiento para validación
+        callbacks=[early_stop],  # Callback para detener el entrenamiento si no hay mejora
+)
+
+model.save('model851param.keras')
+
+# Evaluar el modelo en el conjunto de prueba
+test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=1)
+print(f"Precisión en conjunto de prueba: {test_accuracy:.4f}")
+print(f"Pérdida en conjunto de prueba: {test_loss:.4f}")
