@@ -52,22 +52,20 @@ Variables disponibles:
 
 - Se utilizaron únicamente las variables `prev_score` y `hr_studied`, tras el EDA.
 - Modelo: red neuronal densa de 2 capas ocultas:
-  - `Dense(32, activation='sigmoid')`
   - `Dense(16, activation='sigmoid')`
 - Capa de salida: `Dense(1)`
 - Pérdida: `mse` (error cuadrático medio)
 - Métrica: `mae` (error absoluto medio)
 - Optimizador: `adam`
 - Épocas: 20
-- Total de parámetros: 641
+- Total de parámetros: 65
 
 ---
 
 ## 📊 Resultados
 
-- **MAE (escala original)**: 1.87 puntos
-- **R² (coeficiente de determinación)**: 0.98  
-- **MSE (validación)**: ~0.00067
+- **MAE (escala original)**: 1.93 puntos
+- **MSE (validación)**: ~0.0007
 
 Las predicciones fueron visualizadas y comparadas con los valores reales mediante un scatter plot, mostrando un alineamiento muy próximo a la diagonal ideal.
 
@@ -85,9 +83,9 @@ Las predicciones fueron visualizadas y comparadas con los valores reales mediant
 
 > En este trabajo se desarrolló un modelo de regresión utilizando una red neuronal para predecir el rendimiento académico de estudiantes universitarios, basándose únicamente en las variables `prev_score` y `hr_studied`, que fueron las más relevantes según el análisis exploratorio.
 >
-> El modelo entrenado fue simple pero efectivo, logrando una precisión muy alta. La métrica R²=0.98 sugiere que el modelo explica prácticamente toda la variabilidad del rendimiento académico con solo dos variables.
+> El modelo entrenado fue simple pero efectivo, logrando una precisión muy alta.
 >
-> El error absoluto medio en escala original (MAE ≈ 1.87) indica una alta precisión en la predicción. Los gráficos de entrenamiento y validación mostraron curvas estables, sin evidencia de sobreajuste.
+> El error absoluto medio en escala original (MAE ≈ 1.93) indica una alta precisión en la predicción. Los gráficos de entrenamiento y validación mostraron curvas estables, sin evidencia de sobreajuste.
 >
 > En resumen, el modelo cumple satisfactoriamente con el objetivo planteado y representa una aplicación clara y concreta del uso de redes neuronales densas en problemas de regresión.
 
