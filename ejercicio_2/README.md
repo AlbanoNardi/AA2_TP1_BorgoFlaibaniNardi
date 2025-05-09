@@ -33,15 +33,19 @@ ejercicio_2/
 ├── rock-paper-scissors.py
 ├── rps_dataset_borgo.npy
 ├── rps_dataset_flaibani.npy
+├── rps_dataset_flaibanii.npy
 ├── rps_dataset_nardi.npy
+├── rps_dataset_nardii.npy
 ├── rps_labels_borgo.npy
 ├── rps_labels_flaibani.npy
+├── rps_labels_flaibanii.npy
 ├── rps_labels_nardi.npy
+├── rps_labels_nardii.npy
 ├── model5411param.h5
 ├── graf_model_5411.png
 └── imagenes/
-  ├── capturas_dataset/
-  └── pruebas_prediccion/
+    ├── capturas_dataset/
+    └── pruebas_prediccion/
 
 
 ---
@@ -70,16 +74,22 @@ El dataset fue generado utilizando MediaPipe con python en la versión "Python 3
   - `1`: Papel ✋
   - `2`: Tijeras ✌️
 
-Las muestras están almacenadas en los archivos
-Features:
-  -rps_dataset_borgo.npy
-  -rps_dataset_flaibani.npy
-  -rps_dataset_nardi.npy
-Etiquetas:
-  -rps_labels_borgo.npy
-  -rps_labels_flaibani.npy
-  -rps_labels_nardi.npy
+Las muestras están almacenadas en los archivos:
 
+### Features:
+- rps_dataset_borgo.npy
+- rps_dataset_flaibani.npy
+- rps_dataset_nardi.npy
+- rps_dataset_flaibanii.npy
+- rps_dataset_nardii.npy
+- 
+### Etiquetas:
+- rps_labels_borgo.npy
+- rps_labels_flaibani.npy
+- rps_labels_nardi.npy
+- rps_labels_flaibanii.npy
+- rps_labels_nardii.npy
+- 
 ---
 
 ## 🧠 Entrenamiento del Modelo
