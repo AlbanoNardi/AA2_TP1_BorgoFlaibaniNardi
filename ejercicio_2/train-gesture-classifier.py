@@ -67,7 +67,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Early stop para el modelo
 early_stop = EarlyStopping(
         monitor='val_loss',  # Monitorea la pérdida en validación
-        patience=20,         # Número de épocas sin mejora antes de detener
+        patience=15,         # Número de épocas sin mejora antes de detener
         verbose=0,
         restore_best_weights=True,  # Restaura los mejores pesos encontrados
         mode='min',          # Minimizar la pérdida
@@ -75,15 +75,16 @@ early_stop = EarlyStopping(
 
 model = Sequential([
     Input(shape=(X_train.shape[1],)),   # Capa de entrada: tamaño basado en el número de características (42 valores: x,y para 21 landmarks)
-    Dense(32, activation='relu'),        # Primera capa oculta
+    Dense(64, activation='relu'),
     Dropout(0.3),
-    Dense(16, activation='relu'),        # Segunda capa oculta
+    Dense(32, activation='relu'),
+    Dropout(0.3),
+    Dense(16, activation='relu'),
     Dropout(0.2),
-    Dense(8, activation='relu'),        # Segunda capa oculta
-    Dense(3, activation="softmax")      # Capa de salida: 3 neuronas (una por clase) con activación softmax para clasificación
+    Dense(3, activation="softmax")
 ])
 
-model.summary()                         # Resumen del modelo
+model.summary() 
 
 # Compilación del modelo
 model.compile(
@@ -100,10 +101,33 @@ history = model.fit(
         callbacks=[early_stop],  # Callback para detener el entrenamiento si no hay mejora
 )
 
-
-model.save('model851param.h5')
+model.save('model5411param.h5')
 
 # Evaluar el modelo en el conjunto de prueba
 test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=1)
 print(f"Precisión en conjunto de prueba: {test_accuracy:.4f}")
 print(f"Pérdida en conjunto de prueba: {test_loss:.4f}")
+
+# Después de entrenar
+plt.figure(figsize=(12, 4))
+
+# Gráfico de pérdida
+plt.subplot(1, 2, 1)
+plt.plot(history.history['loss'], label='Entrenamiento')
+plt.plot(history.history['val_loss'], label='Validación')
+plt.title('Curvas de Pérdida')
+plt.xlabel('Época')
+plt.ylabel('Pérdida')
+plt.legend()
+
+# Gráfico de precisión
+plt.subplot(1, 2, 2)
+plt.plot(history.history['accuracy'], label='Entrenamiento')
+plt.plot(history.history['val_accuracy'], label='Validación')
+plt.title('Curvas de Precisión')
+plt.xlabel('Época')
+plt.ylabel('Precisión')
+plt.legend()
+
+plt.tight_layout()
+plt.show()

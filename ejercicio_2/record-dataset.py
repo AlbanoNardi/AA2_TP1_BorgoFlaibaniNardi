@@ -100,7 +100,7 @@ def main():
         if last_captured:
             cv2.putText(
                 display_frame,
-                f"Último capturado: {last_captured}", 
+                f"Ultimo capturado: {last_captured}", 
                 (10, y_pos), 
                 cv2.FONT_HERSHEY_SIMPLEX, 
                 0.6, 
@@ -128,14 +128,14 @@ def main():
                 
                 time.sleep(0.5)                                 # Pequeña pausa para evitar capturas múltiples accidentales
             else:
-                print("No se detectó ninguna mano. Acerca tu mano a la cámara.")
+                print("No se detecto ninguna mano. Acerca tu mano a la camara.")
                 
         elif key == ord('d'):  # Eliminar última muestra
             if X_data and y_labels:
                 last_label = y_labels.pop()
                 X_data.pop()
                 samples_count[last_label] -= 1
-                print(f"Última muestra eliminada: {labels_dict[last_label]}")
+                print(f"Ultima muestra eliminada: {labels_dict[last_label]}")
                 
                 # Actualizar información del último gesto capturado
                 if X_data and y_labels:
@@ -165,7 +165,7 @@ def main():
             percentage = (samples_count[label] / total_samples) * 100 if total_samples > 0 else 0
             print(f"- {name}: {samples_count[label]} muestras ({percentage:.1f}%)")
     else:
-        print("No se guardó ningún dato porque no se capturaron muestras.")
+        print("No se guardo ningun dato porque no se capturaron muestras.")
 
     # Liberar recursos
     cap.release()

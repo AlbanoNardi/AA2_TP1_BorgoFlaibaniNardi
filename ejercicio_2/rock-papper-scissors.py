@@ -12,9 +12,12 @@ import mediapipe as mp
 from tensorflow import keras
 import time
 
+# Definir el umbral de confianza (70%)
+CONFIDENCE_THRESHOLD = 0.7
+
 # Cargar el modelo entrenado
 try:
-    model = keras.models.load_model('model851param.h5')
+    model = keras.models.load_model('model5411param.h5')
     print("Modelo cargado correctamente")
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
@@ -39,7 +42,6 @@ while True:
     ret, frame = cap.read()
     if not ret:
         break
-
             
     # Espejar la imagen para efecto espejo
     frame = cv2.flip(frame, 1)
@@ -68,13 +70,22 @@ while True:
             # Predecir con el modelo
             prediction = model.predict(landmarks_array)
             class_id = np.argmax(prediction)
-            class_name = class_names[class_id]
-            probabilidad = prediction[0][class_id] * 100
-            print(f"Clase predicha: {class_name} - Probabilidad: {probabilidad.round(2)}")
+            confidence = prediction[0][class_id]
+            probabilidad = confidence * 100
+            
+            # Mostrar información en consola
+            print(f"Clase predicha: {class_names[class_id]} - Probabilidad: {probabilidad.round(2)}%")
 
-            # Mostrar la predicción en pantalla
-            cv2.putText(frame, f"Gesto: {class_name}", (10, 40),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            # Verificar si la confianza supera el umbral
+            if confidence >= CONFIDENCE_THRESHOLD:
+                class_name = class_names[class_id]
+                # Mostrar la predicción en pantalla
+                cv2.putText(frame, f"Gesto: {class_name} ({probabilidad:.1f}%)", (10, 40),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            else:
+                # Mostrar mensaje de baja confianza
+                cv2.putText(frame, "Confianza baja", (10, 40),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
     cv2.imshow("Piedra, Papel o Tijeras", frame)
 
