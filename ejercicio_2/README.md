@@ -9,9 +9,9 @@
 * Moreyra, Facundo
 
 ### Integrantes
-* Borgo Elgart, Iair
-* Flaibani, Marcela
-* Nardi, Albano
+* Borgo Elgart, Iair (Legajo: B-6608/7)
+* Flaibani, Marcela (Legajo: F-3793/1)
+* Nardi, Albano (Legajo: N-1280/7)
 
 ## 📌 Descripción del Proyecto
 
