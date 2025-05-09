@@ -28,6 +28,12 @@ url_rps_labels_b = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoF
 url_rps_dataset_n = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_dataset_nardi.npy'
 url_rps_labels_n = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_labels_nardi.npy'
 
+url_rps_dataset_ni = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_dataset_nardii.npy'
+url_rps_labels_ni = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_labels_nardii.npy'
+
+url_rps_dataset_fi = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_dataset_flaibanii.npy'
+url_rps_labels_fi = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_BorgoFlaibaniNardi/main/ejercicio_2/rps_labels_flaibanii.npy'
+
 # Función para descargar y cargar archivos .npy desde URLs
 
 def load_npy_from_url(url):
@@ -46,16 +52,24 @@ y_borgo = load_npy_from_url(url_rps_labels_b)
 x_nardi = load_npy_from_url(url_rps_dataset_n)
 y_nardi = load_npy_from_url(url_rps_labels_n)
 
+x_nardii = load_npy_from_url(url_rps_dataset_n)
+y_nardii = load_npy_from_url(url_rps_labels_n)
+
+x_flaibanii = load_npy_from_url(url_rps_dataset_f)
+y_flaibanii = load_npy_from_url(url_rps_labels_f)
+
 # Verificación de dimensiones de los datasets
 
 print(x_flaibani.shape, y_flaibani.shape)
 print(x_borgo.shape, y_borgo.shape)
 print(x_nardi.shape, y_nardi.shape)
+print(x_flaibanii.shape, y_flaibanii.shape)
+print(x_nardii.shape, y_nardii.shape)
 
 # Concatenación y guardado de los datasets
 
-X_data = np.concatenate((x_flaibani, x_borgo, x_nardi), axis=0)
-y_labels = np.concatenate((y_flaibani, y_borgo, y_nardi), axis=0)
+X_data = np.concatenate((x_flaibani, x_borgo, x_nardi, x_flaibanii, x_nardii), axis=0)
+y_labels = np.concatenate((y_flaibani, y_borgo, y_nardi, y_flaibanii, y_nardii), axis=0)
 
 X_train, X_test, y_train, y_test = train_test_split(
     X_data, y_labels,
