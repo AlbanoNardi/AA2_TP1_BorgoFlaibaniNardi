@@ -14,6 +14,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Input, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 import io
+import time
 
 ## Análisis Exploratorio
 
@@ -39,6 +40,7 @@ url_rps_labels_fi = 'https://raw.githubusercontent.com/AlbanoNardi/AA2_TP1_Borgo
 def load_npy_from_url(url):
     response = requests.get(url)
     if response.status_code == 200:
+        time.sleep(1)
         return np.load(io.BytesIO(response.content))
     else:
         raise Exception(f"Error al descargar el archivo: {response.status_code}")
