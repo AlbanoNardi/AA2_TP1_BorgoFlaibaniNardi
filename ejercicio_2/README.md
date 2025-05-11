@@ -28,24 +28,17 @@ El desarrollo se organiza en tres scripts:
 ## 📁 Estructura del Proyecto
 
 ejercicio_2/
-├── record-dataset.py
-├── train-gesture-classifier.py
-├── rock-paper-scissors.py
-├── rps_dataset_borgo.npy
-├── rps_dataset_flaibani.npy
-├── rps_dataset_flaibanii.npy
-├── rps_dataset_nardi.npy
-├── rps_dataset_nardii.npy
-├── rps_labels_borgo.npy
-├── rps_labels_flaibani.npy
-├── rps_labels_flaibanii.npy
-├── rps_labels_nardi.npy
-├── rps_labels_nardii.npy
-├── model5411param.h5
-├── graf_model_5411.png
+├── record-dataset.py                # Captura de gestos mediante webcam
+├── train-gesture-classifier.py     # Entrenamiento de la red neuronal
+├── rock-paper-scissors.py          # Clasificación en tiempo real
+├── model5411param.h5               # Modelo entrenado
+├── graf_model_5411.png             # Curvas de entrenamiento (loss/accuracy)
+├── rps_dataset_*.npy               # Archivos de datos (features)
+├── rps_labels_*.npy                # Archivos de etiquetas (labels)
 └── imagenes/
-    ├── capturas_dataset/
-    └── pruebas_prediccion/
+    ├── capturas_dataset/           # Imágenes capturadas durante la grabación del dataset
+    └── pruebas_prediccion/        # Capturas de pruebas en tiempo real
+
 
 
 ---
@@ -82,14 +75,14 @@ Las muestras están almacenadas en los archivos:
 - rps_dataset_nardi.npy
 - rps_dataset_flaibanii.npy
 - rps_dataset_nardii.npy
-- 
+
 ### Etiquetas:
 - rps_labels_borgo.npy
 - rps_labels_flaibani.npy
 - rps_labels_nardi.npy
 - rps_labels_flaibanii.npy
 - rps_labels_nardii.npy
-- 
+
 ---
 
 ## 🧠 Entrenamiento del Modelo
