@@ -28,16 +28,17 @@ El desarrollo se organiza en tres scripts:
 ## 📁 Estructura del Proyecto
 
 ejercicio_2/
-├── record-dataset.py                # Captura de gestos mediante webcam
-├── train-gesture-classifier.py     # Entrenamiento de la red neuronal
-├── rock-paper-scissors.py          # Clasificación en tiempo real
-├── model5411param.h5               # Modelo entrenado
-├── graf_model_5411.png             # Curvas de entrenamiento (loss/accuracy)
-├── rps_dataset_*.npy               # Archivos de datos (features)
-├── rps_labels_*.npy                # Archivos de etiquetas (labels)
-└── imagenes/
-    ├── capturas_dataset/           # Imágenes capturadas durante la grabación del dataset
-    └── pruebas_prediccion/        # Capturas de pruebas en tiempo real
+
+    ├── record-dataset.py                # Captura de gestos mediante webcam
+    ├── train-gesture-classifier.py     # Entrenamiento de la red neuronal
+    ├── rock-paper-scissors.py          # Clasificación en tiempo real
+    ├── model5411param.h5               # Modelo entrenado
+    ├── graf_model_5411.png             # Curvas de entrenamiento (loss/accuracy)
+    ├── rps_dataset_*.npy               # Archivos de datos (features)
+    ├── rps_labels_*.npy                # Archivos de etiquetas (labels)
+    └── imagenes/
+        ├── capturas_dataset/           # Imágenes capturadas durante la grabación del dataset
+        └── pruebas_prediccion/        # Capturas de pruebas en tiempo real
 
 
 
