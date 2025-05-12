@@ -102,6 +102,15 @@ Todas las imágenes tienen un tamaño de **150x150 píxeles** y están etiquetad
 
 ## 🎓 Conclusión
 
+Este trabajo permitió comparar distintas arquitecturas de redes neuronales aplicadas a la clasificación de imágenes naturales.
+
+Se observó que las redes convolucionales ofrecen un equilibrio óptimo entre rendimiento y complejidad, superando ampliamente a las redes densas.
+
+Los bloques residuales aportan profundidad, pero su complejidad no se tradujo en mejor rendimiento en este caso.
+
+Por último, los modelos con transfer learning demostraron un excelente desempeño con muy pocos parámetros entrenables, aunque requirieron cuidado para evitar sobreajuste.
+
+En conclusión, el modelo convolucional clásico fue el más robusto para este conjunto de datos, cumpliendo los objetivos del trabajo.
 
 ---
 
