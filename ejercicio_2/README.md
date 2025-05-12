@@ -105,7 +105,7 @@ Durante las pruebas en tiempo real (`rock-paper-scissors.py`):
 - La predicción aparece sobre el video si la confianza es suficiente.
 
 Capturas de predicciones y dataset están disponibles en la carpeta `imagenes/`.
-Captura de gráfica con curvas de aprendizaje disponible en 'graf_model_5411.png'
+Captura de gráfica con curvas de aprendizaje disponible en 'graf_model.png'
 
 ---
 
