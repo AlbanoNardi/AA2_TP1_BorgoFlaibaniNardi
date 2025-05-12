@@ -64,32 +64,30 @@ Todas las imágenes tienen un tamaño de **150x150 píxeles** y están etiquetad
 ## 🧠 Modelos Desarrollados
 
 ### 🔹 Modelo Denso (Dense)
-
 * Arquitectura completamente conectada sin convoluciones
-* Precisión en validación: **54%**
-* Número de parámetros: \~8.6M
+* Precisión en validación: 54%
+* Número de parámetros: ~8.6M
 * Buen punto de partida, pero limitado para imágenes
 
 ### 🔹 Modelo Convolucional
-
-* Arquitectura: `Conv2D + MaxPooling + Dense`
-* Precisión en validación: **\~86%**
-* Parámetros: \~148K
+* Arquitectura: Conv2D + MaxPooling + Dense
+* Precisión en validación: ~86%
+* Parámetros: ~148K
 * Balance ideal entre precisión y tamaño
 
 ### 🔹 Modelo con Bloques Residuales (Identidad)
-
-* Uso de `Add()` y conexiones tipo ResNet
-* Precisión en validación: **\~75%**
-* Parámetros: \~552K
+* Uso de Add() y conexiones tipo ResNet
+* Precisión en validación: ~75%
+* Parámetros: ~552K
 * Riesgo de sobreajuste sin aumento de datos
 
 ### 🔹 Modelo con Backbone (Transfer Learning)
-
-* Utiliza `MobileNetV3Small` con pesos de ImageNet
-* Capa de clasificación personalizada
-* Muy buena precisión, aunque muestra **overfitting**
-* Rápido entrenamiento gracias a congelación de pesos
+* Utiliza MobileNetV3Small con pesos de ImageNet
+* Precisión en validación: ~90% aunque muestra overfitting
+* Parámetros:  
+  * Totales: ~1861k
+  * Entrenables: ~922K
+* Rápido entrenamiento gracias al conocimiento previo del modelo
 
 ---
 
