@@ -17,7 +17,8 @@ CONFIDENCE_THRESHOLD = 0.7
 
 # Cargar el modelo entrenado
 try:
-    model = keras.models.load_model('model5411param.h5')
+    # model = keras.models.load_model('model5411param.h5')
+    model = keras.models.load_model('model_augmented.h5')
     print("Modelo cargado correctamente")
 except Exception as e:
     print(f"Error al cargar el modelo: {e}")
